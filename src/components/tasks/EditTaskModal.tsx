@@ -5,7 +5,7 @@ import { Task, TaskFormData } from "@/types/index";
 import { useForm } from "react-hook-form";
 import TaskForm from "./TaskForm";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateTask } from "@/api/TaskApi";
+import { updateTask } from "@/api/TaskAPI";
 import { toast } from "react-toastify";
 
 type EditTaskModalProps = {
@@ -39,7 +39,9 @@ const EditTaskModal = ({ data, taskId }: EditTaskModalProps) => {
       toast.error(error.message);
     },
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["project", projectId] });
       queryClient.invalidateQueries({ queryKey: ["editProject", projectId] });
+      queryClient.invalidateQueries({ queryKey: ["task", taskId] });
       toast.success(data);
       reset();
       navigate(location.pathname, { replace: true });

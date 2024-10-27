@@ -4,7 +4,7 @@ import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { useNavigate, useParams } from "react-router-dom";
 import { Task } from "@/types/index";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteTask } from "@/api/TaskApi";
+import { deleteTask } from "@/api/TaskAPI";
 import { toast } from "react-toastify";
 
 type TaskCardProps = {
@@ -31,6 +31,10 @@ const TaskCard = ({ task }: TaskCardProps) => {
 
   const handleDeleteTask = () => {
     mutate({ projectId, taskId: task._id });
+  };
+
+  const handleViewTask = () => {
+    navigate(`${location.pathname}?viewTask=${task._id}`);
   };
 
   const handleTaskEdit = () => {
@@ -69,6 +73,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
                 <button
                   type="button"
                   className="block px-3 py-1 text-sm leading-6 text-gray-900"
+                  onClick={handleViewTask}
                 >
                   Ver Tarea
                 </button>
