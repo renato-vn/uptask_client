@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { UserLoginForm } from "@/types/index";
 import ErrorMessage from "@/components/ErrorMessage";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { authenticateUser } from "@/api/AuthAPI";
@@ -17,13 +17,15 @@ const LoginView = () => {
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
 
+  const navigate = useNavigate();
+
   const { mutate } = useMutation({
     mutationFn: authenticateUser,
     onError: (error) => {
       toast.error(error.message);
     },
-    onSuccess: (data) => {
-      toast.success(data);
+    onSuccess: () => {
+      navigate("/");
     },
   });
 
@@ -65,14 +67,14 @@ const LoginView = () => {
         </div>
 
         <div className="flex flex-col gap-5">
-          <label className="font-normal text-2xl">Password</label>
+          <label className="font-normal text-2xl">Contraseña</label>
 
           <input
             type="password"
-            placeholder="Password de Registro"
+            placeholder="Contraseña de Registro"
             className="w-full p-3  border-gray-300 border"
             {...register("password", {
-              required: "El Password es obligatorio",
+              required: "La contraseña es obligatoria",
             })}
           />
           {errors.password && (
