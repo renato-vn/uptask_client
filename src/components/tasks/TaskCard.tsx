@@ -9,9 +9,10 @@ import { toast } from "react-toastify";
 
 type TaskCardProps = {
   task: Task;
+  canEdit: boolean;
 };
 
-const TaskCard = ({ task }: TaskCardProps) => {
+const TaskCard = ({ task, canEdit }: TaskCardProps) => {
   const navigate = useNavigate();
 
   const params = useParams();
@@ -47,6 +48,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
         <button
           type="button"
           className="text-xl font-bold text-slate-600 text-left"
+          onClick={handleViewTask}
         >
           {task.name}
         </button>
@@ -78,25 +80,30 @@ const TaskCard = ({ task }: TaskCardProps) => {
                   Ver Tarea
                 </button>
               </Menu.Item>
-              <Menu.Item>
-                <button
-                  type="button"
-                  className="block px-3 py-1 text-sm leading-6 text-gray-900"
-                  onClick={handleTaskEdit}
-                >
-                  Editar Tarea
-                </button>
-              </Menu.Item>
 
-              <Menu.Item>
-                <button
-                  type="button"
-                  onClick={handleDeleteTask}
-                  className="block px-3 py-1 text-sm leading-6 text-red-500"
-                >
-                  Eliminar Tarea
-                </button>
-              </Menu.Item>
+              {canEdit && (
+                <>
+                  <Menu.Item>
+                    <button
+                      type="button"
+                      className="block px-3 py-1 text-sm leading-6 text-gray-900"
+                      onClick={handleTaskEdit}
+                    >
+                      Editar Tarea
+                    </button>
+                  </Menu.Item>
+
+                  <Menu.Item>
+                    <button
+                      type="button"
+                      onClick={handleDeleteTask}
+                      className="block px-3 py-1 text-sm leading-6 text-red-500"
+                    >
+                      Eliminar Tarea
+                    </button>
+                  </Menu.Item>
+                </>
+              )}
             </Menu.Items>
           </Transition>
         </Menu>
