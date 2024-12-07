@@ -48,18 +48,18 @@ const LoginView = () => {
         noValidate
       >
         <div className="flex flex-col gap-5">
-          <label className="font-normal text-2xl">Email</label>
+          <label className="font-normal text-2xl">Correo Electrónico</label>
 
           <input
             id="email"
             type="email"
-            placeholder="Email de Registro"
+            placeholder="Correo Electrónico de Registro"
             className="w-full p-3  border-gray-300 border"
             {...register("email", {
-              required: "El Email es obligatorio",
+              required: "El correo electrónico es obligatorio.",
               pattern: {
                 value: /\S+@\S+\.\S+/,
-                message: "E-mail no válido",
+                message: "Correo electrónico no válido.",
               },
             })}
           />
